@@ -45,7 +45,7 @@ public class HomeFragment extends Fragment {
     private RecyclerView recyclerView;
     RecyclerAdapter adapter;
     SwipeRefreshLayout swipeRefreshLayout;
-    private List<PostData> list = new ArrayList<>();
+    private List<PostData> list = null;
     TextView noInternet;
 
     public HomeFragment() {
@@ -64,6 +64,18 @@ public class HomeFragment extends Fragment {
     }
 
     @Override
+    public void onCreate(Bundle save){
+        super.onCreate(save);
+
+        Bundle data = getArguments();
+        if (data != null) {
+            Gson gson = new Gson();
+            Type type = new TypeToken<List<PostData>>() {}.getType();
+            list = gson.fromJson((String) data.getCharSequence("json"), type);
+        }
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
@@ -78,7 +90,7 @@ public class HomeFragment extends Fragment {
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(adapter);
 
-        if(list.size()==0) {
+        if(list==null || list.size()==0) {
             makeNetworkCall();
         }
 

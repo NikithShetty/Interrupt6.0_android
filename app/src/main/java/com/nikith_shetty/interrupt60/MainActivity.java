@@ -13,8 +13,11 @@ import android.os.Bundle;
 import android.support.v7.graphics.Palette;
 import android.support.v7.widget.Toolbar;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.pushbots.push.Pushbots;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
     TabLayout tabLayout;
     ViewPager viewPager;
     CollapsingToolbarLayout collapsingToolbarLayout;
+    Bundle intentData = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(HomeFragment.title, HomeFragment.newInstance(null));
+        adapter.addFragment(HomeFragment.title, HomeFragment.newInstance(intentData));
         adapter.addFragment(EventsFragment.title, EventsFragment.newInstance(null));
         adapter.addFragment(ContactFragment.title, ContactFragment.newInstance(null));
         viewPager.setAdapter(adapter);
