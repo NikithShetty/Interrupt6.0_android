@@ -13,11 +13,12 @@ public class EventData {
     private String venue;
     private String dateTime;
     private String fee;
+    private String contact;
 
     public EventData(){
     }
 
-    public EventData(String id, String name, String imgurl, String desc, String venue, String f, String dT){
+    public EventData(String id, String name, String imgurl, String desc, String venue, String f, String dT, String con){
         this.event_id = id;
         this.event_name = name;
         this.imgUrl = imgurl;
@@ -25,6 +26,7 @@ public class EventData {
         this.venue = venue;
         this.fee = f;
         this.dateTime = dT;
+        this.contact = con;
     }
 
     public String getEvent_id() {
@@ -81,6 +83,14 @@ public class EventData {
 
     public void setFee(String fee) {
         this.fee = fee;
+    }
+
+    public String getContact() {
+        return contact;
+    }
+
+    public void setContact(String contact) {
+        this.contact = contact;
     }
 
 }

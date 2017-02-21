@@ -9,105 +9,87 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAlignment="center"
         android:text="Team INTERRUPT 6.0"
-        android:textSize="24sp"/>
+        android:textAlignment="center"
+        android:textSize="24sp" />
 
     <View
         android:layout_width="match_parent"
-        android:layout_marginTop="16dp"
         android:layout_height="1dp"
-        android:background="#e0e0e0"/>
+        android:layout_marginTop="16dp"
+        android:background="#e0e0e0" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:orientation="horizontal"
-        android:paddingTop="16dp"
-        android:gravity="center">
+        android:paddingTop="16dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:text="Email: " />
+            android:text="Email: "
+            android:textAlignment="center" />
 
         <TextView
+            android:id="@+id/interruptEmail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="@string/interruptEmail"
             android:textAlignment="center"
-            android:text="interrupt6.0@dr-ait.org"/>
+            android:textColor="#0000f0" />
     </LinearLayout>
 
     <View
         android:layout_width="150dp"
+        android:layout_height="1dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="16dp"
-        android:layout_height="1dp"
-        android:background="#e0e0e0"/>
+        android:background="#e0e0e0" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:orientation="vertical"
-        android:paddingTop="16dp"
-        android:gravity="center">
+        android:paddingTop="16dp">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:text="Contact : "/>
+            android:text="App created by:"
+            android:textAlignment="center" />
+
         <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:paddingTop="16dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:text="9856325412"/>
-    </LinearLayout>
+            android:text="Nikith Shetty"
+            android:textAlignment="center" />
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_marginTop="16dp"
-        android:layout_height="1dp"
-        android:background="#e0e0e0"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingTop="16dp"
-        android:gravity="center">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:text="App created by:"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:paddingTop="16dp"
-            android:text="Nikith Shetty"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:orientation="horizontal"
-            android:paddingTop="16dp"
-            android:gravity="center">
+            android:paddingTop="16dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAlignment="center"
-                android:text="Email: " />
+                android:text="Email: "
+                android:textAlignment="center" />
 
             <TextView
+                android:id="@+id/myEmail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:clickable="true"
+                android:linksClickable="true"
+                android:text="@string/myEmail"
                 android:textAlignment="center"
-                android:text="shettynikith3@gmail.com"/>
+                android:textColor="#0000f0" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

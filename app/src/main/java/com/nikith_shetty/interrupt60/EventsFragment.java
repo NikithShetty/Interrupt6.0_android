@@ -115,7 +115,8 @@ public class EventsFragment extends Fragment {
                                 obj.getString("event_desc"),
                                 obj.getString("venue"),
                                 obj.getString("fee"),
-                                obj.getString("date_time")
+                                obj.getString("date_time"),
+                                obj.getString("contact")
                         ));
                     }
                 } catch (JSONException e) {

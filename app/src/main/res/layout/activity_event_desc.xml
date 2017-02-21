@@ -96,6 +96,24 @@
                         android:padding="10dp"
                         android:text="Venue"/>
                 </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:text="Contact : "/>
+                    <TextView
+                        android:id="@+id/eventDescContact"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#0000f0"
+                        android:padding="10dp"/>
+                </LinearLayout>
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
