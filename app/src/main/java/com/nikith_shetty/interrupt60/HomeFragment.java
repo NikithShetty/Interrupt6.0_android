@@ -99,7 +99,7 @@ public class HomeFragment extends Fragment {
                 Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
-                Log.e(title, "response : " + response.toString());
+                //Log.e(title, "response : " + response.toString());
                 try {
                     for(int i=0; i<response.length(); i++){
                         JSONObject obj = response.getJSONObject(i);
@@ -115,12 +115,12 @@ public class HomeFragment extends Fragment {
                                 obj.getString("weblink"),
                                 display
                             ));
-                        Log.e(title, ">>list.toSting() : " + list.get(i).toString());
+                        //Log.e(title, ">>list.toSting() : " + list.get(i).toString());
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                Log.e(title, ">>list.size() : " + list.size());
+                //Log.e(title, ">>list.size() : " + list.size());
                 adapter.notifyDataSetChanged();
                 if(swipeRefreshLayout.isRefreshing())
                     swipeRefreshLayout.setRefreshing(false);

@@ -67,7 +67,7 @@ public class EventsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        Log.e(title, "Inside onCreateView");
+        //Log.e(title, "Inside onCreateView");
         View view = inflater.inflate(R.layout.fragment_events, container, false);
         swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.eventsSwiperefresh);
         noInternt = (TextView) view.findViewById(R.id.noInternetEvent);
@@ -99,7 +99,7 @@ public class EventsFragment extends Fragment {
 
     private void makeNetworkCall() {
         swipeRefreshLayout.setRefreshing(true);
-        Log.e(title, "Inside makeNetworkCall");
+        //Log.e(title, "Inside makeNetworkCall");
         JsonArrayRequest jsonRequest = new JsonArrayRequest(
                 Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
             @Override

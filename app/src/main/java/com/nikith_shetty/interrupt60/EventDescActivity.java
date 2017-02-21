@@ -52,7 +52,7 @@ public class EventDescActivity extends AppCompatActivity implements View.OnClick
         }.getType();
         if (data != null) {
             eventData = gson.fromJson((String) data.getCharSequence("json"), type);
-            Log.e(TAG, "received data : " + eventData.toString());
+            //Log.e(TAG, "received data : " + eventData.toString());
             title.setText(eventData.getEvent_name());
             getSupportActionBar().setTitle(eventData.getEvent_name());
 
