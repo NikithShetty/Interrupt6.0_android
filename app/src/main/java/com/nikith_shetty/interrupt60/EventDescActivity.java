@@ -82,16 +82,6 @@ public class EventDescActivity extends AppCompatActivity implements View.OnClick
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                NavUtils.navigateUpFromSameTask(this);
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
     public void onClick(View view) {
         if (view.equals(contact)) {
             if (eventData != null) {
