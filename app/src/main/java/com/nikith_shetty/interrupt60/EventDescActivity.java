@@ -47,10 +47,9 @@ public class EventDescActivity extends AppCompatActivity implements View.OnClick
         contact = (TextView) findViewById(R.id.eventDescContact);
 
         Bundle data = getIntent().getExtras();
-        Gson gson = new Gson();
-        Type type = new TypeToken<EventData>() {
-        }.getType();
         if (data != null) {
+            Gson gson = new Gson();
+            Type type = new TypeToken<EventData>() {}.getType();
             eventData = gson.fromJson((String) data.getCharSequence("json"), type);
             //Log.e(TAG, "received data : " + eventData.toString());
             title.setText(eventData.getEvent_name());
