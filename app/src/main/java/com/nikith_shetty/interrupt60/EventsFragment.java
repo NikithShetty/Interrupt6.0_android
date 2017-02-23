@@ -2,7 +2,6 @@ package com.nikith_shetty.interrupt60;
 
 
 import android.content.Intent;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -13,7 +12,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -47,7 +45,7 @@ public class EventsFragment extends Fragment {
     RecyclerAdapter adapter;
     String url = "http://interrupt.tk/buttons.php?type=JSON";
     private List<EventData> list = new ArrayList<>();
-    TextView noInternt;
+    TextView noInternet;
 
     public EventsFragment() {
         // Required empty public constructor
@@ -64,13 +62,26 @@ public class EventsFragment extends Fragment {
     }
 
     @Override
+    public void onCreate(Bundle save){
+        super.onCreate(save);
+
+        Bundle data = getArguments();
+        if (data != null) {
+            Gson gson = new Gson();
+            Type type = new TypeToken<List<EventData>>() {}.getType();
+            list = gson.fromJson((String) data.getCharSequence("json"), type);
+            Log.e(title, "got bundle. list json : " + data.getCharSequence("json"));
+        }
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         //Log.e(title, "Inside onCreateView");
         View view = inflater.inflate(R.layout.fragment_events, container, false);
         swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.eventsSwiperefresh);
-        noInternt = (TextView) view.findViewById(R.id.noInternetEvent);
+        noInternet = (TextView) view.findViewById(R.id.noInternetEvent);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity().getBaseContext());
         adapter = new RecyclerAdapter(list);
@@ -99,7 +110,7 @@ public class EventsFragment extends Fragment {
 
     private void makeNetworkCall() {
         swipeRefreshLayout.setRefreshing(true);
-        //Log.e(title, "Inside makeNetworkCall");
+        Log.e(title, "Inside makeNetworkCall");
         JsonArrayRequest jsonRequest = new JsonArrayRequest(
                 Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
             @Override
@@ -108,7 +119,7 @@ public class EventsFragment extends Fragment {
                     for(int i=0; i<response.length(); i++){
                         JSONObject obj = response.getJSONObject(i);
                         //Log.e(title, "obj.getString(\"img_url\") : " + obj.getString("img_url"));
-                        list.add( new EventData(
+                        list.add( EventData.createEvent(
                                 obj.getString("event_id"),
                                 obj.getString("event_name"),
                                 obj.getString("img_url"),
@@ -125,14 +136,14 @@ public class EventsFragment extends Fragment {
                 adapter.notifyDataSetChanged();
                 if(swipeRefreshLayout.isRefreshing())
                     swipeRefreshLayout.setRefreshing(false);
-                noInternt.setVisibility(View.GONE);
+                noInternet.setVisibility(View.GONE);
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 if(swipeRefreshLayout.isRefreshing())
                     swipeRefreshLayout.setRefreshing(false);
-                noInternt.setVisibility(View.VISIBLE);
+                noInternet.setVisibility(View.VISIBLE);
                 Toast.makeText(getActivity(), "Network Error", Toast.LENGTH_SHORT).show();
             }
         });

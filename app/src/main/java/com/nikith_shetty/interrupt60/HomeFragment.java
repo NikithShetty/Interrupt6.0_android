@@ -45,7 +45,7 @@ public class HomeFragment extends Fragment {
     private RecyclerView recyclerView;
     RecyclerAdapter adapter;
     SwipeRefreshLayout swipeRefreshLayout;
-    private List<PostData> list = null;
+    private List<PostData> list = new ArrayList<>();
     TextView noInternet;
 
     public HomeFragment() {
@@ -72,6 +72,7 @@ public class HomeFragment extends Fragment {
             Gson gson = new Gson();
             Type type = new TypeToken<List<PostData>>() {}.getType();
             list = gson.fromJson((String) data.getCharSequence("json"), type);
+            Log.e(title, "got bundle. list json : " + data.getCharSequence("json"));
         }
     }
 
@@ -84,15 +85,15 @@ public class HomeFragment extends Fragment {
         swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.homeswiperefresh);
         noInternet = (TextView) view.findViewById(R.id.noInternet);
 
+        if(list==null || list.size()==0) {
+            makeNetworkCall();
+        }
+
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity().getBaseContext());
         adapter = new RecyclerAdapter(list);
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(adapter);
-
-        if(list==null || list.size()==0) {
-            makeNetworkCall();
-        }
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -106,7 +107,7 @@ public class HomeFragment extends Fragment {
 
     private void makeNetworkCall() {
         swipeRefreshLayout.setRefreshing(true);
-//        Log.e(title, "Inside makeNetworkCall");
+        Log.e(title, "Inside makeNetworkCall");
         JsonArrayRequest jsonRequest = new JsonArrayRequest(
                 Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
             @Override
@@ -115,17 +116,14 @@ public class HomeFragment extends Fragment {
                 try {
                     for(int i=0; i<response.length(); i++){
                         JSONObject obj = response.getJSONObject(i);
-                        int display = PostData.DiplayAs.NONE;
-                        if(obj.get("displayas").equals("ACTIVITY"))
-                            display = PostData.DiplayAs.ACTIVITY;
-                        else if(obj.get("displayas").equals("WEBVIEW"))
-                            display = PostData.DiplayAs.WEBVIEW;
                         list.add(PostData.createPost(
+                                obj.getString("id"),
                                 obj.getString("imgurl"),
                                 obj.getString("title"),
                                 obj.getString("content"),
                                 obj.getString("weblink"),
-                                display
+                                obj.getString("displayas"),
+                                obj.getString("timestamp")
                             ));
                         //Log.e(title, ">>list.toSting() : " + list.get(i).toString());
                     }
@@ -199,7 +197,7 @@ public class HomeFragment extends Fragment {
             }else {
                 holder.rowSummary.setVisibility(View.GONE);
             }
-            if(data.getDisplayAs()== PostData.DiplayAs.ACTIVITY){
+            if(data.getDisplayAs().equals(PostData.DiplayAs.ACTIVITY)){
                 holder.cardView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -210,7 +208,7 @@ public class HomeFragment extends Fragment {
                         startActivity(intent);
                     }
                 });
-            }else if(data.getDisplayAs()== PostData.DiplayAs.WEBVIEW){
+            }else if(data.getDisplayAs().equals(PostData.DiplayAs.WEBVIEW)){
                 holder.cardView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -218,7 +216,7 @@ public class HomeFragment extends Fragment {
                             startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(data.getWebLink())));
                     }
                 });
-            }else if(data.getDisplayAs()== PostData.DiplayAs.NONE){
+            }else if(data.getDisplayAs().equals(PostData.DiplayAs.NONE)){
                 //do nothing
             }
         }

@@ -7,14 +7,19 @@ package com.nikith_shetty.interrupt60;
 public class PostData{
 
     public interface DiplayAs{
-        int ACTIVITY = 20;
-        int WEBVIEW = 22;
-        int NONE = 24;
+        String ACTIVITY = "ACTIVITY";
+        String WEBVIEW = "WEBVIEW";
+        String NONE = "NONE";
     }
 
     //data members
-    private String title, imgUrl, content, webLink;
-    private int displayAs;
+    private String id;
+    private String title;
+    private String imgUrl;
+    private String content;
+    private String webLink;
+    private String timestamp;
+    private String displayAs;
 
 
     public PostData(){
@@ -37,19 +42,23 @@ public class PostData{
         return n;
     }
 
-    public static PostData createPost(String imgurl, String title, String content, String web, int disp){
+    public static PostData createPost(String id, String imgurl, String title,
+                                      String content, String disp, String web, String time){
         PostData n = new PostData();
+        n.setId(id);
         n.setImgUrl(imgurl);
         n.setTitle(title);
         n.setContent(content);
         n.setDisplayAs(disp);
         n.setWebLink(web);
+        n.setTimestamp(time);
         return n;
     }
 
     public String toString(){
-        return "Title: " + title + ", ImgURL: " + imgUrl + ", Content: "
-                + content + ", WebLink: " + webLink;
+        return "id: " + id + ", Title: " + title + ", Disp As: " + displayAs +
+                ", ImgURL: " + imgUrl + ", Content: " + content +
+                ", WebLink: " + webLink + ", Timestamp: " + timestamp;
     }
 
     //getters and setters
@@ -69,9 +78,19 @@ public class PostData{
         return webLink;
     }public void    setWebLink(String webLink) {
         this.webLink = webLink;
-    }public int     getDisplayAs() {
+    }public String getDisplayAs() {
         return displayAs;
-    }public void    setDisplayAs(int displayAs) {
+    }public void    setDisplayAs(String displayAs) {
         this.displayAs = displayAs;
+    }public String getId() {
+        return id;
+    }
+    public void setId(String id) {
+        this.id = id;
+    }public String getTimestamp() {
+        return timestamp;
+    }
+    public void setTimestamp(String timestamp) {
+        this.timestamp = timestamp;
     }
 }

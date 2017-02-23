@@ -16,17 +16,28 @@ public class EventData {
     private String contact;
 
     public EventData(){
+        this.event_id = null;
+        this.event_name = null;
+        this.imgUrl = null;
+        this.event_desc = null;
+        this.venue = null;
+        this.fee = null;
+        this.dateTime = null;
+        this.contact = null;
     }
 
-    public EventData(String id, String name, String imgurl, String desc, String venue, String f, String dT, String con){
-        this.event_id = id;
-        this.event_name = name;
-        this.imgUrl = imgurl;
-        this.event_desc = desc;
-        this.venue = venue;
-        this.fee = f;
-        this.dateTime = dT;
-        this.contact = con;
+    public static EventData createEvent(String id, String name, String imgurl, String desc, String dT,
+                     String venue, String f, String con){
+        EventData n = new EventData();
+        n.setEvent_id(id);
+        n.setEvent_name(name);
+        n.setImgUrl(imgurl);
+        n.setEvent_desc(desc);
+        n.setVenue(venue);
+        n.setFee(f);
+        n.setDateTime(dT);
+        n.setContact(con);
+        return n;
     }
 
     public String getEvent_id() {
