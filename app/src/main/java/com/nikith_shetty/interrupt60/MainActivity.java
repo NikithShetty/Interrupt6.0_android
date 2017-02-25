@@ -2,8 +2,8 @@ package com.nikith_shetty.interrupt60;
 
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -11,7 +11,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.graphics.Palette;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -26,7 +25,6 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private String TAG = "MainActivity";
     Toolbar toolbar;
     TabLayout tabLayout;
     ViewPager viewPager;
@@ -34,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     Intent callingIntent = null;
     Bundle postsListBundle = null;
     Bundle eventsListBundle = null;
+    private String TAG = "MainActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -138,10 +137,6 @@ public class MainActivity extends AppCompatActivity {
         Cursor c = db.readAllData();
         List<EventData> data = new ArrayList<>();
         while (c.moveToNext()){
-//            Log.e(TAG, "id : " + c.getString(0) + ", name : " + c.getString(1) +
-//            ", imgurl : " + c.getString(2) + ", desc : " + c.getString(3) +
-//            ", dateTime : " + c.getString(4) + ", venue : " + c.getString(5) +
-//            ", fee : " + c.getString(6) + ", contact : " + c.getString(7));
             data.add( EventData.createEvent(c.getString(0), c.getString(1), c.getString(2),
                     c.getString(3), c.getString(4), c.getString(5), c.getString(6),
                     c.getString(7)));
@@ -155,6 +150,14 @@ public class MainActivity extends AppCompatActivity {
             Log.e(TAG, "Events from DB : " + gson.toJson(data, type));
         }
         return eventsData;
+    }
+
+    private void setupViewPager(ViewPager viewPager) {
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        adapter.addFragment(HomeFragment.title, HomeFragment.newInstance(postsListBundle));
+        adapter.addFragment(EventsFragment.title, EventsFragment.newInstance(eventsListBundle));
+        adapter.addFragment(ContactFragment.title, ContactFragment.newInstance(null));
+        viewPager.setAdapter(adapter);
     }
 
     static class ViewPagerAdapter extends FragmentPagerAdapter{
@@ -185,13 +188,5 @@ public class MainActivity extends AppCompatActivity {
         public String getPageTitle(int position){
             return titleList.get(position);
         }
-    }
-
-    private void setupViewPager(ViewPager viewPager) {
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(HomeFragment.title, HomeFragment.newInstance(postsListBundle));
-        adapter.addFragment(EventsFragment.title, EventsFragment.newInstance(eventsListBundle));
-        adapter.addFragment(ContactFragment.title, ContactFragment.newInstance(null));
-        viewPager.setAdapter(adapter);
     }
 }

@@ -42,11 +42,11 @@ public class HomeFragment extends Fragment {
 
     public static String title = "HOME";
     private static String url = "http://interrupt.tk/postsData.php";
-    private RecyclerView recyclerView;
     RecyclerAdapter adapter;
     SwipeRefreshLayout swipeRefreshLayout;
-    private List<PostData> list = new ArrayList<>();
     TextView noInternet;
+    private RecyclerView recyclerView;
+    private List<PostData> list = new ArrayList<>();
 
     public HomeFragment() {
         // Required empty public constructor
@@ -121,8 +121,8 @@ public class HomeFragment extends Fragment {
                                 obj.getString("imgurl"),
                                 obj.getString("title"),
                                 obj.getString("content"),
-                                obj.getString("weblink"),
                                 obj.getString("displayas"),
+                                obj.getString("weblink"),
                                 obj.getString("timestamp")
                             ));
                         //Log.e(title, ">>list.toSting() : " + list.get(i).toString());
@@ -153,19 +153,6 @@ public class HomeFragment extends Fragment {
     class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder>{
 
         private List<PostData> list;
-
-        public class ViewHolder extends RecyclerView.ViewHolder {
-            NetworkImageView rowImg;
-            TextView rowHeader, rowSummary;
-            CardView cardView;
-            public ViewHolder(View itemView) {
-                super(itemView);
-                rowHeader = (TextView) itemView.findViewById(R.id.rowHeader);
-                rowSummary = (TextView) itemView.findViewById(R.id.rowSummary);
-                rowImg = (NetworkImageView) itemView.findViewById(R.id.rowImg);
-                cardView = (CardView) itemView.findViewById(R.id.homeCard);
-            }
-        }
 
         public RecyclerAdapter(List<PostData> dataSet){
             list = dataSet;
@@ -232,6 +219,20 @@ public class HomeFragment extends Fragment {
                     ImageLoader.getImageListener(img, R.drawable.logo_img_url, 0));
             img.setImageUrl(url,
                     imageLoader);
+        }
+
+        public class ViewHolder extends RecyclerView.ViewHolder {
+            NetworkImageView rowImg;
+            TextView rowHeader, rowSummary;
+            CardView cardView;
+
+            public ViewHolder(View itemView) {
+                super(itemView);
+                rowHeader = (TextView) itemView.findViewById(R.id.rowHeader);
+                rowSummary = (TextView) itemView.findViewById(R.id.rowSummary);
+                rowImg = (NetworkImageView) itemView.findViewById(R.id.rowImg);
+                cardView = (CardView) itemView.findViewById(R.id.homeCard);
+            }
         }
     }
 }

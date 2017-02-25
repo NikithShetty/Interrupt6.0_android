@@ -36,12 +36,6 @@ public class SplashActivity extends AppCompatActivity {
     private String gotPostsList = FETCH_STATUS.NULL;
     private String gotEventsList = FETCH_STATUS.NULL;
 
-    private interface FETCH_STATUS{
-        String NULL = "null";
-        String NETERR = "network_error";
-        String FETCH_SUCC = "fetched_data";
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,10 +84,7 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     private boolean checkInternetPermission(){
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.INTERNET) != PackageManager.PERMISSION_GRANTED) {
-            return false;
-        }else
-            return true;
+        return ActivityCompat.checkSelfPermission(this, Manifest.permission.INTERNET) == PackageManager.PERMISSION_GRANTED;
     }
 
     private void getInternetPermission(){
@@ -123,7 +114,7 @@ public class SplashActivity extends AppCompatActivity {
                 Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
-//                Log.e(TAG, "response : " + response.toString());
+                Log.e(TAG, "response : " + response.toString());
                 try {
                     for(int i=0; i<response.length(); i++){
                         JSONObject obj = response.getJSONObject(i);
@@ -132,8 +123,8 @@ public class SplashActivity extends AppCompatActivity {
                                 obj.getString("imgurl"),
                                 obj.getString("title"),
                                 obj.getString("content"),
-                                obj.getString("weblink"),
                                 obj.getString("displayas"),
+                                obj.getString("weblink"),
                                 obj.getString("timestamp")
                         ));
 //                        Log.e(TAG, ">>postList.toSting() : " + postList.get(i).toString());
@@ -189,5 +180,11 @@ public class SplashActivity extends AppCompatActivity {
         });
 
         Volley.newRequestQueue(SplashActivity.this).add(jsonRequest);
+    }
+
+    private interface FETCH_STATUS {
+        String NULL = "null";
+        String NETERR = "network_error";
+        String FETCH_SUCC = "fetched_data";
     }
 }
