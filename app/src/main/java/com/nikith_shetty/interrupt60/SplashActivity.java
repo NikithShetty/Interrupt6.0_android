@@ -159,9 +159,9 @@ public class SplashActivity extends AppCompatActivity {
                                 obj.getString("event_name"),
                                 obj.getString("img_url"),
                                 obj.getString("event_desc"),
+                                obj.getString("date_time"),
                                 obj.getString("venue"),
                                 obj.getString("fee"),
-                                obj.getString("date_time"),
                                 obj.getString("contact")
                         ));
                     }

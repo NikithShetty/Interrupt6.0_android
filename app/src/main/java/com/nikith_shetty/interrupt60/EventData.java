@@ -26,8 +26,8 @@ public class EventData {
         this.contact = null;
     }
 
-    public static EventData createEvent(String id, String name, String imgurl, String desc, String dT,
-                     String venue, String f, String con){
+    public static EventData createEvent(String id, String name, String imgurl, String desc,
+                                        String dT, String venue, String f, String con) {
         EventData n = new EventData();
         n.setEvent_id(id);
         n.setEvent_name(name);

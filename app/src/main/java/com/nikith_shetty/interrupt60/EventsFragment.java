@@ -44,8 +44,8 @@ public class EventsFragment extends Fragment {
     RecyclerView recyclerView;
     RecyclerAdapter adapter;
     String url = "http://interrupt.tk/buttons.php?type=JSON";
-    private List<EventData> list = new ArrayList<>();
     TextView noInternet;
+    private List<EventData> list = new ArrayList<>();
 
     public EventsFragment() {
         // Required empty public constructor
@@ -124,9 +124,9 @@ public class EventsFragment extends Fragment {
                                 obj.getString("event_name"),
                                 obj.getString("img_url"),
                                 obj.getString("event_desc"),
+                                obj.getString("date_time"),
                                 obj.getString("venue"),
                                 obj.getString("fee"),
-                                obj.getString("date_time"),
                                 obj.getString("contact")
                         ));
                     }
@@ -157,18 +157,6 @@ public class EventsFragment extends Fragment {
 
         private List<EventData> list;
         private ImageLoader imageLoader;
-
-        public class ViewHolder extends RecyclerView.ViewHolder {
-            NetworkImageView rowImg;
-            TextView rowTitle;
-            CardView cardView;
-            public ViewHolder(View itemView) {
-                super(itemView);
-                rowTitle = (TextView) itemView.findViewById(R.id.eventName);
-                rowImg = (NetworkImageView) itemView.findViewById(R.id.eventImg);
-                cardView = (CardView) itemView.findViewById(R.id.eventsCard);
-            }
-        }
 
         public RecyclerAdapter(List<EventData> dataSet){
             list = dataSet;
@@ -211,6 +199,19 @@ public class EventsFragment extends Fragment {
         @Override
         public int getItemCount() {
             return list.size();
+        }
+
+        public class ViewHolder extends RecyclerView.ViewHolder {
+            NetworkImageView rowImg;
+            TextView rowTitle;
+            CardView cardView;
+
+            public ViewHolder(View itemView) {
+                super(itemView);
+                rowTitle = (TextView) itemView.findViewById(R.id.eventName);
+                rowImg = (NetworkImageView) itemView.findViewById(R.id.eventImg);
+                cardView = (CardView) itemView.findViewById(R.id.eventsCard);
+            }
         }
     }
 }
